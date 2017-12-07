@@ -1,7 +1,7 @@
-@extends ('app\layout')
+@extends ('app.layout')
 
 @section('content')
 
 
-    <a href="/todo">Visit Your Todos</a>
+    <a href="{{route('todos')}}">Visit Your Todos</a>
 @stop

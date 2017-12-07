@@ -1,4 +1,4 @@
-@extends ('app/layout')
+@extends ('app.layout')
 
 <style>
     .form-div {
@@ -11,7 +11,7 @@
     <div class="row">
 
         <div class="col-lg-6 form-div">
-            <form action="/create/todo" method="post">
+            <form action="{{route('create.todo')}}" method="post">
                 {{csrf_field()}}
                 <input class="form-control " name="todo" placeholder="Create New Todo">
             </form>
@@ -20,18 +20,85 @@
     </div>
 
 
-    @foreach($todos as $todo)
 
-        {{ $todo->todo }} <a href="/todo/delete/{{$todo->id}}" class="btn btn-danger"> x </a>
 
-        <a href="/todo/update/{{$todo->id}}" class="btn btn-info"> Update </a>
+    <div class="panel panel-default">
+        <div class="panel-heading">All Todos</div>
 
-        @if($todo->completed == 0)
-            <a href="/todo/completed/{{$todo->id}}" class="btn btn-success">Mark as Completed</a>
-        @endif
+        <div class="panel-body">
 
-        <hr>
+            <table class="table table-hover">
 
-    @endforeach
+
+                <thead>
+
+                <th>Todo</th>
+                <th>Delete</th>
+                <th>Update</th>
+                <th>Complete</th>
+                </thead>
+
+
+                <tbody>
+
+                
+
+                
+                     @foreach($todos as $todo)
+
+
+                        <tr>
+
+                        
+                            <td>
+
+                               {{ $todo->todo }}
+
+                            </td>
+
+
+                            <td>
+                              <a href="{{route('delete.todo', ['id' => $todo->id])}}" class="btn btn-danger"> x </a>
+                            </td>
+
+                            <td>
+
+                                <a href="{{route('update.todo', ['id' => $todo->id])}}" class="btn btn-info"> Update </a>
+                            </td>
+
+                            <td>
+
+                               @if($todo->completed == 0)
+                                    <a href="{{route('complete.todo' , ['id' => $todo->id])}}" class="btn btn-success">Mark as Completed</a>
+                                @else 
+
+                                    Completed
+                                    
+                                @endif    
+
+
+                            </td>
+
+
+                        </tr>
+
+
+
+
+                    @endforeach
+
+          
+
+
+                </tbody>
+
+
+
+
+            </table>
+
+        </div>
+
+    </div>
 
 @stop
